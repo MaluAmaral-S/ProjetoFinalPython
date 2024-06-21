@@ -69,10 +69,8 @@ def jogar_proxima_partida(partidas, banco):
         print("Partida registrada no banco de dados com sucesso!")
         print(f"Resultado: {equipe1.nome} {pontuacao_equipe1} x {pontuacao_equipe2} {equipe2.nome}")
 
-        # Remover a partida jogada da lista de partidas
         partidas.pop(0)
 
-        # Contar partidas restantes
         partidas_restantes = contar_partidas_restantes(partidas)
         print(f"Partidas restantes: {partidas_restantes}")
 
@@ -81,7 +79,6 @@ def jogar_proxima_partida(partidas, banco):
 
     return partidas, partidas_restantes
 
-# Função para jogar todas as partidas de uma vez
 def jogar_todas_partidas(partidas, banco):
     partidas_restantes = len(partidas)
     while partidas:
@@ -90,11 +87,9 @@ def jogar_todas_partidas(partidas, banco):
     if partidas_restantes == 0:
         print("Todas as partidas foram jogadas.")
 
-# Função para contar as partidas restantes
 def contar_partidas_restantes(partidas):
     return len(partidas)
 
-# Função para obter a performance das equipes
 def obter_performance_equipes(banco):
     try:
         consulta = "SELECT equipe1_nome, equipe2_nome, pontuacao_equipe1, pontuacao_equipe2 FROM resultados_partidas"
@@ -117,7 +112,6 @@ def obter_performance_equipes(banco):
         print(f"Erro ao obter performance das equipes: {e}")
         return None
 
-# Função para plotar o gráfico de performance por equipe
 def plotar_grafico_performance(performance_equipes):
     if not performance_equipes:
         print("Nenhuma informação de performance disponível.")
@@ -126,7 +120,6 @@ def plotar_grafico_performance(performance_equipes):
     equipes = list(performance_equipes.keys())
     pontuacoes = [performance_equipes[equipe] for equipe in equipes]
 
-    # Criar o gráfico de barras
     plt.figure(figsize=(10, 6))
     plt.barh(equipes, pontuacoes, color='skyblue')
     plt.xlabel('Pontuação')
@@ -135,10 +128,9 @@ def plotar_grafico_performance(performance_equipes):
     plt.tight_layout()
     plt.show()
 
-# Função principal que gerencia o menu
 def main():
-    banco = BancoDeDados()  # Instância do banco de dados
-    banco.conectar()  # Conecta ao banco de dados
+    banco = BancoDeDados()  
+    banco.conectar()  
 
     partidas = []
     while True:
@@ -173,14 +165,13 @@ def main():
             performance_equipes = obter_performance_equipes(banco)
             plotar_grafico_performance(performance_equipes)
         elif choice == '7':
-            banco.fechar_conexao()  # Fecha a conexão com o banco de dados
+            banco.fechar_conexao()
             break
         else:
             print("Opção inválida. Tente novamente.")
 
-    banco.fechar_conexao()  # Em caso de saída do loop, garante que a conexão seja fechada
+    banco.fechar_conexao()  
 
-# Função para gerenciar equipes (suponho que você já tenha implementado essa função)
 def gerenciar_equipes(banco):
     while True:
         print("\nGerenciamento de Equipes")
